@@ -1,0 +1,43 @@
+/* ---- 索引：按轨道分组，组名和轨道上的标注一致 */
+.index-group + .index-group { margin-top: 10px; }
+.index-label { color: var(--muted); padding: 6px 0 2px; font-size: 10px; }
+.index ol { list-style: none; }
+
+/* ---- 下一步的建议 */
+.suggest { display: flex; flex-direction: column; max-width: 30rem; }
+.suggest > *,
+.suggest-list > li {
+  animation: focus-rise 0.8s var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 60ms + 120ms);
+}
+.suggest-title {
+  font-weight: 300;
+  font-size: clamp(2.4rem, 3.6vw, 3.6rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin: 16px 0 14px;
+}
+.suggest-sub { color: var(--grey); font-size: 1.1rem; line-height: 1.5; max-width: 34ch; }
+
+.suggest-list { list-style: none; margin-top: 32px; border-top: 1px solid var(--rule); }
+.suggest-list > li { border-bottom: 1px solid var(--rule); }
+.option {
+  width: 100%;
+  display: grid;
+  gap: 6px;
+  padding: 18px 0;
+  text-align: left;
+}
+.option-head { display: grid; grid-template-columns: 8px 1fr auto; align-items: center; column-gap: 14px; }
+.option-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--dot); }
+.option-name { font-size: 1.35rem; color: var(--grey); transition: color 0.2s; }
+.option-gap { color: var(--muted); }
+.option-desc { padding-left: 22px; color: var(--grey); line-height: 1.45; max-width: 40ch; }
+.option-from { padding-left: 22px; color: var(--c); opacity: 0.85; }
+.option.is-hover .option-name { color: var(--ink); }
+.option.is-hover .option-gap { color: var(--ink); }
+.option:focus-visible { outline: 1px solid var(--grey); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .suggest > *, .suggest-list > li { animation-duration: 0.01s; animation-delay: 0s; }
+}

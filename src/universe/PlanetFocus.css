@@ -1,0 +1,51 @@
+.focus { display: flex; flex-direction: column; max-width: 30rem; }
+
+.focus > *,
+.focus-points > li {
+  animation: focus-rise 0.8s var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 60ms + 150ms);
+}
+@keyframes focus-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+.focus-meta { color: var(--muted); }
+.focus-title {
+  font-weight: 300;
+  font-size: clamp(2.4rem, 3.6vw, 3.6rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  margin: 16px 0 12px;
+  text-wrap: balance;
+}
+.focus-field { color: var(--c); }
+
+.focus-desc { margin-top: 28px; font-size: 1.25rem; line-height: 1.5; max-width: 34ch; text-wrap: pretty; }
+.focus-from { margin-top: 14px; color: var(--muted); }
+.focus-search { display: flex; gap: 22px; margin-top: 30px; }
+.focus-search .text-button { color: var(--grey); }
+.focus-search .text-button:hover { color: var(--ink); }
+
+.focus-note {
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+  font-size: 1.2rem;
+  line-height: 1.55;
+  color: var(--grey);
+}
+
+.focus-points { list-style: none; margin-top: 28px; border-top: 1px solid var(--rule); }
+.focus-points > li { padding: 16px 0; border-bottom: 1px solid var(--rule); }
+.point-angle { color: var(--muted); margin-bottom: 8px; }
+.point-mark { color: var(--c); }
+.point-text { font-size: 1.1rem; line-height: 1.5; text-wrap: pretty; }
+.point-source { margin-top: 8px; color: var(--muted); font-size: 0.9rem; font-style: italic; }
+
+.focus-actions { display: flex; align-items: baseline; gap: 18px; margin-top: 28px; }
+.focus-esc { color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .focus > *, .focus-points > li { animation-duration: 0.01s; animation-delay: 0s; }
+}

@@ -1,0 +1,28 @@
+/* 颜色与字体，色值来自项目计划「前端实现」一节 */
+:root {
+  --bg: #09090b;
+  --ink: #f3f1ea;
+  --grey: #a9a8b5;
+  --muted: #82818f;
+  --rule: #2b2a36;
+  --panel: #15141d;
+  --orbit: #3f3e50;
+  --seed: #b8b6c2;
+
+  /* 与 src/universe/palette.ts 一致：降一档饱和度，明度错开 */
+  --field-1: #d27a52; /* 橙，AI 和技术 */
+  --field-2: #8579d6; /* 紫，心理与认知 */
+  --field-3: #d4b363; /* 黄，商业与决策 */
+  --field-4: #6fae8f; /* 绿，科学 */
+  --field-5: #cf7ba0; /* 粉，艺术与创作 */
+  --field-6: #6a8fcc; /* 蓝，社会与人文 */
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* ease-out-expo */
+
+  /* 层级 */
+  --z-focus: 10;
+  --z-chrome: 20;
+
+  --serif: 'Newsreader', Georgia, serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+}

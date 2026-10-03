@@ -1,0 +1,8 @@
+.text-button {
+  color: var(--ink);
+  padding: 4px 0;
+  border-bottom: 1px solid var(--muted);
+  transition: border-color 0.2s;
+}
+.text-button:hover { border-color: var(--ink); }
+.text-button:disabled { color: var(--muted); border-color: var(--rule); cursor: default; }
