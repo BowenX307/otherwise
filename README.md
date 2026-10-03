@@ -34,6 +34,10 @@ npm run build      # 类型检查 + 打包到 dist/
 
 系统开启"减少动态效果"时，页面跳过开场、关闭漂移和视差。
 
+### 声音
+
+唤醒和解锁时有音效，全部用 Web Audio 实时合成（`src/universe/sound.ts`），没有音频文件。按 **M** 或点顶栏的 `Sound on / off` 静音，设置会记住。
+
 ## 代码结构
 
 ```text
@@ -50,6 +54,7 @@ src/
     engine.ts           模拟：轨道、物理、唤醒与解锁的时间线、空位
     starfield.ts        画布：视差星点、光波经过时星点变亮
     orbCore.ts          中心的 Orb（也是 logo）：一道缝，靠动作表达状态
+    sound.ts            音效（Web Audio 合成）
     Panel.tsx           左列：索引 / 下一步建议
     PlanetFocus.tsx     左列：一颗星球的详情
     palette.ts          颜色（与 styles/tokens.css 保持一致）
@@ -76,6 +81,5 @@ src/
 
 ## 还没做
 
-- **打卡流程**：现在选中建议就直接解锁。打卡页做好后，插在"选中"和"解锁"之间，解锁调用 `window.otherwise.unlock()` 或 `pages/Universe.tsx` 里的 `unlock`。
 - Start 选兴趣页、朋友的宇宙（顶栏的 Friends）、localStorage 保存。
 - 只有 Cognitive psychology 有阅读内容（3 屏要点）；其他星球的详情是描述 + Google / YouTube 搜索。

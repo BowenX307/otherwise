@@ -22,6 +22,7 @@ import {
 } from './engine';
 import { createStarLayers, drawBackground, type View, type Wave } from './starfield';
 import { OrbCore, ORB_UNITS, type OrbState } from './orbCore';
+import { sound } from './sound';
 import { BG, INK, mix } from './palette';
 import { PlanetFocus } from './PlanetFocus';
 import { PanelHome, PanelSuggest, formatGap, type PanelView } from './Panel';
@@ -185,6 +186,10 @@ export function UniverseScene({ universe, onIntroDone, suggestions, onUnlock }: 
   const wakeUp = useCallback(() => {
     if (sim.awake) return;
     wake(sim);
+    sound.wake(
+      RIPPLE.gather,
+      sim.bodies.map((b) => ({ delay: (b.bornAt ?? sim.t) - sim.t, orbit: b.orbit })).sort((a, b) => a.delay - b.delay),
+    );
     lastActivity.current = performance.now();
     cam.current = { ...cam.current, tx: 0, ty: 0, tk: 1, vx: 0, vy: 0, animating: true };
     setAwake(true);
@@ -258,7 +263,10 @@ export function UniverseScene({ universe, onIntroDone, suggestions, onUnlock }: 
       }
       c.x = Math.max(-520, Math.min(520, c.x));
       c.y = Math.max(-340, Math.min(340, c.y));
-      const S = L.base * c.k;
+      // 光波放出的那一刻，整个宇宙被轻轻"推"一下（和低频的声音同步），代替震动
+      const sinceRelease = sim.ripple ? sim.t - sim.ripple.start - RIPPLE.gather : -1;
+      const thump = !reduced && sinceRelease >= 0 ? 1 + 0.012 * Math.exp(-sinceRelease * 6) : 1;
+      const S = L.base * c.k * thump;
 
       // ---- 鼠标视差（平滑跟随）
       const p = parallax.current;
@@ -462,6 +470,8 @@ export function UniverseScene({ universe, onIntroDone, suggestions, onUnlock }: 
     const before = sim.bodies.length;
     universe.planets.forEach((planet, index) => addPlanet(sim, planet, index));
     if (sim.bodies.length > before) {
+      const born = sim.bodies[sim.bodies.length - 1];
+      sound.unlock(RIPPLE.gather, { delay: (born.bornAt ?? sim.t) - sim.t, orbit: born.orbit });
       unfocus();
       cam.current = { ...cam.current, tx: 0, ty: 0, tk: 1, animating: true };
       setVersion((v) => v + 1);
@@ -472,6 +482,7 @@ export function UniverseScene({ universe, onIntroDone, suggestions, onUnlock }: 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       lastActivity.current = performance.now();
+      if (e.key.toLowerCase() === 'm' && !e.repeat && !e.metaKey && !e.ctrlKey) sound.toggle();
       if (e.key === 'Escape') {
         if (panelViewRef.current === 'suggest') closeSuggest();
         else unfocus();

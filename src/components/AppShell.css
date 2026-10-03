@@ -22,6 +22,10 @@
 .shell-nav a { padding-bottom: 5px; border-bottom: 1px solid transparent; }
 .shell-nav .is-active { color: var(--ink); border-color: var(--ink); }
 .shell-nav .is-disabled { cursor: default; }
+/* 声音开关：和导航同一行，用一条竖线隔开 */
+.sound-toggle { margin-left: 4px; padding: 0 0 5px 28px; border-left: 1px solid var(--rule); letter-spacing: inherit; text-transform: inherit; color: var(--muted); transition: color 0.2s; }
+.sound-toggle:hover { color: var(--ink); }
+.sound-toggle[aria-pressed='true'] { color: var(--grey); }
 
 @media (max-width: 899px) {
   .shell-top { padding: 20px 24px 0; }
